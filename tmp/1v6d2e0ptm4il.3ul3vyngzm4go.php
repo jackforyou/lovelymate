@@ -15,6 +15,7 @@
     <link href="dependency/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
+    <link rel="stylesheet" href="dependency/js/jfu/css/jquery.fileupload.css">
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
@@ -22,6 +23,7 @@
     <!-- Plugin CSS -->
     <link rel="stylesheet" href="dependency/vendor/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="dependency/vendor/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="dependency/vendor/device-mockups/device-mockups.min.css">
     <link href="dependency/css/dropzone.css" rel="stylesheet">
     <!-- Theme CSS -->
     <link href="dependency/css/new-age.min.css" rel="stylesheet">
@@ -38,7 +40,7 @@
      <!-- jQuery -->
     <script src="dependency/vendor/jquery/jquery.min.js"></script>
 
-    <?php echo $this->render(Base::instance()->get('content')); ?>
+    <?php echo $this->render($content,$this->mime,get_defined_vars(),0); ?>
   
 
     <!-- Bootstrap Core JavaScript -->

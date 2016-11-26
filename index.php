@@ -6,9 +6,9 @@ $f3=require('lib/base.php');
 $f3->config('setup.cfg');
 $f3->set('AUTOLOAD', 'app/controllers');
 $db=new DB\SQL(
-            'mysql:host=localhost;port=3306;dbname=lovely_mate',
+            'mysql:host=localhost;port=8889;dbname=fatfree',
             'root',
-            ''
+            'root'
         );
 $f3->set('UPLOADS','uploads/');
 $web = Web::instance();
@@ -26,8 +26,9 @@ $f3->route('GET /form',
         echo \Template::instance()->render('..\dependency\index.htm');
     }
 );
-$f3->route('GET /vue',
-    function() {
+$f3->route('GET /add-activity',
+    function($f3) {
+        $f3->set('content', '\dependency\add-activity.htm');
         echo View::instance()->render('\dependency\vue.html');
     }
 );

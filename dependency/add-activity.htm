@@ -1,0 +1,84 @@
+<nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+            </button>
+            <a class="navbar-brand page-scroll" href="#page-top">LOVELY MATE</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+<div class="content-main">
+    <div class="container content-middle">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="text-center">
+                    <div id="app">
+                    	<div class="form-horizontal">
+                    	<div class="form-group">
+                    		<label for="inputEmail3" class="col-sm-2 control-label">กิจกรรม</label>
+                    		<div class="col-md-10">
+                    		<input type="text" v-model="text" id="input" class="form-control" value="" required="required" pattern="" title="" placeholder="กิจกรรม ตัวอย่าง กินข้าว">
+                    		</div>
+                    	</div>
+                    	<div class="form-group">
+                    		<label for="inputEmail3" class="col-sm-2 control-label">ราคา</label>
+                    		<div class="col-md-10">
+                    		<input type="text" v-model="rate" id="input" class="form-control" value="" required="required" pattern="" title="" placeholder="ราคา/ชม. หรือ ราคา/ครั้ง">
+                    		</div>
+                    	</div>
+                    	<div class="form-group">
+                    		<button type="button" @click="addData" class="btn btn-lg btn-danger">Add</button>
+                    	</div>
+                    	</div>
+                    	<br>
+                    	<h1>Activities List</h1>
+                    	<div class="form-horizontal">
+                    		<div :class="listColor" is="activ-list" v-for="(item, index) in active_list" :data="item" v-on:remove="active_list.splice(index, 1)">
+                    		</div>
+                    		<button @click="sendData" type="button" class="btn btn-success">Submit</button>
+                    	</div>
+                    </div>
+                </div>
+            </div>
+        <div>
+    </div>
+</div>
+<script type="text/javascript" src="dependency/js/vue.js"></script>
+<script type="text/javascript">
+	Vue.component('activ-list',{
+		props: ['data'],
+		template: "<div class='form-control'>\
+		<div class='form-group'>\
+		<div class='col-md-4 text-left'>\
+		     <button class='btn-xs btn-danger'v-on:click=\"$emit('remove')\">X</button>\
+		</div>\
+		<div class='col-md-4 text-left'><b>{{ data.text }}<b></div>\
+		<div class='col-md-4 text-right'> {{ data.rate }} </di></di></div>"
+	})
+	var app = new Vue({
+		el: '#app',
+		data:{
+			text: '',
+			rate: '',
+			listColor: 'color-black',
+			disableOrNot: true,
+			active_list:[]
+		},
+		methods:{
+			addData: function(){
+				app.active_list.push({'text': app.text, 'rate': app.rate})
+				app.hideOrNot = false;
+			},
+			sendData: function(){
+				console.log(JSON.parse(JSON.stringify(app.$data.active_list)));
+			}
+		}
+	})
+
+</script>
