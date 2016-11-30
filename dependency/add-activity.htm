@@ -81,7 +81,7 @@
 		},
 		methods:{
 			addData: function(){
-                app.active_list.push({'text': app.text, 'rate': app.rate});
+                app.active_list.push({'text': app.text, 'rate': "ราคา " + app.rate});
                 collectionList.push({'text': app.text, 'rate': app.rate});
                 if (app.active_list.length > 0)
                 {
@@ -102,6 +102,7 @@
                 console.log(collectionList);
             },
             asyncData: function(){
+                this.success = false;
                 $.ajax({
                     url: 'update-activities',
                     type: 'post',
