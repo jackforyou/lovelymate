@@ -6,9 +6,9 @@ $f3=require('lib/base.php');
 $f3->config('setup.cfg');
 $f3->set('AUTOLOAD', 'app/controllers');
 $db=new DB\SQL(
-            'mysql:host=localhost;port=8889;dbname=fatfree',
+            'mysql:host=localhost;port=3306;dbname=lovely_mate',
             'root',
-            'root'
+            ''
         );
 $f3->set('UPLOADS','uploads/');
 $web = Web::instance();
@@ -32,10 +32,20 @@ $f3->route('GET /add-activity',
         echo View::instance()->render('\dependency\vue.html');
     }
 );
+$f3->route('POST /update-activities [ajax]',
+    function($f3) use($db){
+      $getData = $f3->get('POST.data');
+      $user = new DB\SQL\Mapper($db,'member');
+      $frequentUsers = $user->load(array('Username=?','anny'),array('order'=>'ID'));
+      $user->activities = json_encode($getData);
+      $user->save();
+      echo "OK";
+    }
+);
 $f3->route('GET|POST|PUT /upload-data',
     function($f3) use($db,$web) {
         $user = new DB\SQL\Mapper($db,'member');
-        $frequentUsers = $user->find(array('Nickname=?','Ann'),array('order'=>'ID'));
+        $frequentUsers = $user->find(array('Username=?','anny'),array('order'=>'ID'));
         foreach ($frequentUsers as $obj)
         {
            if ($obj->Nickname != $f3->get('POST.nickname'))
@@ -161,5 +171,4 @@ $f3->route('GET /userref',
 		echo View::instance()->render('layout.htm');
 	}
 );
-
 $f3->run();

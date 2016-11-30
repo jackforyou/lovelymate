@@ -5,7 +5,7 @@
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
             </button>
-            <a class="navbar-brand page-scroll" href="#page-top">LOVELY MATE</a>
+            <a class="navbar-brand page-scroll" href="">LOVELY MATE</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -19,6 +19,7 @@
             <div class="col-sm-12">
                 <div class="text-center">
                     <div id="app">
+                        <h1>เพิ่มกิจกรรม</h1>
                     	<div class="form-horizontal">
                     	<div class="form-group">
                     		<label for="inputEmail3" class="col-sm-2 control-label">กิจกรรม</label>
@@ -37,12 +38,18 @@
                     	</div>
                     	</div>
                     	<br>
-                    	<h1>Activities List</h1>
-                    	<div class="form-horizontal">
-                    		<div :class="listColor" is="activ-list" v-for="(item, index) in active_list" :data="item" v-on:remove="active_list.splice(index, 1)">
-                    		</div>
-                    		<button @click="sendData" type="button" class="btn btn-success">Submit</button>
-                    	</div>
+                        <div  v-show="show">
+                            <div class="alert alert-success" v-if="success">
+                              <strong>Success!</strong> Indicates a successful or positive action.
+                            </div>
+                        	<h1>Activities List</h1>
+                        	<div class="form-horizontal">
+                        		<div :class="listColor" is="activ-list" v-for="(item, index) in active_list" :data="item" v-on:remove="removeData(index)">
+                        		</div>
+                                <br>
+                        		<button @click="asyncData" type="button" class="btn btn-success">Save</button>
+                        	</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -51,11 +58,12 @@
 </div>
 <script type="text/javascript" src="dependency/js/vue.js"></script>
 <script type="text/javascript">
+    var collectionList = [];
 	Vue.component('activ-list',{
 		props: ['data'],
 		template: "<div class='form-control'>\
 		<div class='form-group'>\
-		<div class='col-md-4 text-left'>\
+		  <div class='col-md-4 text-left'>\
 		     <button class='btn-xs btn-danger'v-on:click=\"$emit('remove')\">X</button>\
 		</div>\
 		<div class='col-md-4 text-left'><b>{{ data.text }}<b></div>\
@@ -67,18 +75,50 @@
 			text: '',
 			rate: '',
 			listColor: 'color-black',
-			disableOrNot: true,
-			active_list:[]
+			active_list:[],
+            show: false,
+            success: false
 		},
 		methods:{
 			addData: function(){
-				app.active_list.push({'text': app.text, 'rate': app.rate})
-				app.hideOrNot = false;
+                app.active_list.push({'text': app.text, 'rate': app.rate});
+                collectionList.push({'text': app.text, 'rate': app.rate});
+                if (app.active_list.length > 0)
+                {
+                    app.show = true;
+                }
+                console.log(collectionList);
 			},
 			sendData: function(){
 				console.log(JSON.parse(JSON.stringify(app.$data.active_list)));
-			}
+			},
+            removeData: function (index) {
+                app.active_list.splice(index, 1);
+                collectionList.splice(index, 1);
+                if (app.active_list.length <= 0)
+                {
+                    app.show = false;
+                }
+                console.log(collectionList);
+            },
+            asyncData: function(){
+                $.ajax({
+                    url: 'update-activities',
+                    type: 'post',
+                    data: { data: collectionList},
+                    success: function (data) {
+                        if (data == "OK")
+                        {
+                            app.success = true;
+                        }
+                        // var reponse = JSON.parse(data);
+                        // $.each(reponse, function(index, val) {
+                        //      console.log(val);
+                        // });       
+                    }
+                });
+            }
 		}
-	})
+	});
 
 </script>
