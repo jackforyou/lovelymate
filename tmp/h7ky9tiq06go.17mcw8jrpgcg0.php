@@ -47,20 +47,27 @@
                                         <label for="">สัดส่วน</label>
                                         <input name="shape" type="text" class="form-control" id="" placeholder="ตัวอย่าง 34-33-35">
                                     </div>
+                                    <div class="form-group">
+                                        <label for="">อัพโหลดรูปภาพ</label>
+                                        <input type="file" name="fileToUpload" id="fileToUpload">
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="">ความสนใจ</label>
                                         <input name="interests" type="text" class="form-control" id="" placeholder="ตัวอย่าง ชอบดูหนัง, ชอบออกกำลังกาย, ชอบกินอาหารญี่ปุ่น" required="required">
                                     </div>
-                                    
+                                    <div class="form-group">
+                                        <label for="">ผู้ชายในฝัน</label>
+                                        <input name="interests" type="text" class="form-control" id="" placeholder="ตัวอย่าง กล้ามเยอะๆ แน่นๆ" required="required">
+                                    </div>
                                     <div class="form-group">
                                         <label for="">เบอร์โทรติดต่อ</label>
                                         <input name="phone" type="text" class="form-control" id="" placeholder="ตัวอย่าง 080-9999-999" required="required">
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label for="">facebook</label>
+                                        <label for="">Facebook</label>
                                         <input name="facebook" type="text" class="form-control" id="" placeholder="ตัวอย่าง Nina Sithada" required="required">
                                     </div>
                                 
@@ -74,7 +81,6 @@
                                     </div>
                                 </div>
                                 </div>
-                                <input type="file" name="fileToUpload" id="fileToUpload">
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </div>
